@@ -1,8 +1,10 @@
 package com.github.obj04.terraincognita.server;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.IOException;
+import com.github.obj04.terraincognita.client.Request;
+import com.github.obj04.terraincognita.game.Coordinates;
+import com.github.obj04.terraincognita.server.world.World;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -14,6 +16,7 @@ public class Server extends Thread {
     ServerThreadState state;
     List<Thread> subThreads = new ArrayList<>();
     List<Socket> clients = new ArrayList<>();
+    World world = new World();
 
     public Server(File baseDirectory) {
 
@@ -32,10 +35,7 @@ public class Server extends Thread {
         }
 
         state = ServerThreadState.RUNNING;
-        while(!interrupted())
-        {
-
-        }
+        while(!interrupted());
 
         state = ServerThreadState.STOPPING;
         try {
@@ -71,37 +71,50 @@ public class Server extends Thread {
             Socket client = socket.accept();
             addClient(client);
         } catch(SocketTimeoutException exc) {
+            return;
         } catch(IOException exc) {
             state = ServerThreadState.CRASHED;
             exc.printStackTrace();
-            return;
+            System.out.println("Server crashed.");
         }
     }
 
 
-    void pollRequests()
+    void processRequests()
     {
         List<Socket> currentClients = new ArrayList<>(clients);
         for(Socket client : currentClients)
         {
             try {
-                String input = new DataInputStream(client.getInputStream()).readUTF();
-                String reqType = input.split(" ", 2)[0];
-                String args = input.split(" ", 2)[1];
-                System.out.println(reqType + "->" + args);
-
-                if(reqType.compareTo("chat") == 0) {
-                    System.out.println("" + client.getRemoteSocketAddress() + " > " + args);
+                DataOutputStream out = new DataOutputStream(client.getOutputStream());
+                DataInputStream in = new DataInputStream(client.getInputStream());
+                byte input = in.readByte();
+                if(input == 0)
+                    continue;
+                Request request = getRequest(input);
+                switch(request) {
+                    case GET_BLOCK:
+                        Coordinates pos = new Coordinates(in.readLong(), in.readInt());
+                        out.write(world.getBlock(pos).id);
                 }
-                if(reqType.compareTo("disconnect") == 0) {
-                    removeClient(client);
-                }
-            } catch(IOException exc) {
+            } catch(EOFException e) {
+                removeClient(client);
+            } catch(IOException e) {
                 System.out.println("Server-side IOException");
-                exc.printStackTrace();
-            } catch(NullPointerException exc) {
+                e.printStackTrace();
+            } catch(NullPointerException e) {
+                e.printStackTrace();
                 System.out.println("Server-side NullPointerException");
             }
+        }
+    }
+
+    Request getRequest(int code) {
+        try {
+            return Request.values()[code];
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("outOfBounds");
+            return Request.HEARTBEAT;
         }
     }
 
@@ -109,11 +122,8 @@ public class Server extends Thread {
 
     private synchronized void removeClient(Socket client)
     {
-        try
-        {
-            clients.remove(client);
-            System.out.println("" + client.getRemoteSocketAddress() + " disconnected");
-        } catch(Exception exc) {}
+        clients.remove(client);
+        System.out.println("" + client.getRemoteSocketAddress() + " disconnected");
     }
     private synchronized void addClient(Socket client)
     {
@@ -129,22 +139,14 @@ public class Server extends Thread {
 
     void initSubThreads()
     {
-        subThreads.add(new Thread() {
-            @Override
-            public void run()
-            {
+        subThreads.add(new Thread(() -> {
                 while(!interrupted())
                     checkForClients();
-            }
-        });
-        subThreads.add(new Thread() {
-            @Override
-            public void run()
-            {
-                while(!interrupted())
-                    pollRequests();
-            }
-        });
+        }));
+        subThreads.add(new Thread(() -> {
+            while(!interrupted())
+                processRequests();
+        }));
 
         for(Thread subThread : subThreads)
         {

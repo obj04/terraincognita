@@ -11,10 +11,10 @@ public class TerraIncognita {
             try {
                 new LauncherGUI(launcher);
             } catch(HeadlessException e) {
-                new LauncherTUI(launcher).run();
+                new LauncherCLI(launcher).run();
             }
         } else {
-            System.out.printf("Non-interactive mode");
+            System.out.println("Non-interactive mode");
         }
     }
 }

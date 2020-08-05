@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b91652d-1682-4ce7-a0e1-a1368441249e" name="Default Changelist" comment="" />
+    <list default="true" id="5b91652d-1682-4ce7-a0e1-a1368441249e" name="Default Changelist" comment="implemented GET_BLOCK request">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/GameWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/ServerConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/graphics/FOV.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/graphics/Texture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/game/Block.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/game/BlockID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/game/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/LauncherCLI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/world/World.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/world/generator/Generator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/world/generator/Simplex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/world/generator/Terrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/TerraIncognita.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/TerraIncognita.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/LauncherGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/LauncherGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/launcher/LauncherTUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/obj04/terraincognita/server/Server.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,11 +33,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1fZ6MUgztBIkZVUeyHrGbbdSyhZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -22,15 +53,24 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/builds" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.github.obj04.terraincognita.client" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="TerraIncognita" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.obj04.terraincognita.TerraIncognita" />
       <module name="Terra Incognita" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/builds" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -49,30 +89,75 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="implemented GET_BLOCK request" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented GET_BLOCK request" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="125" y="170" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596415718312">
+    <state x="123" y="152" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596461927651">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="125" y="170" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596415718312" />
+    <state x="123" y="152" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596461927651" />
     <state x="397" y="281" width="529" height="416" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1596415715624">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="397" y="281" width="529" height="416" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596415715624" />
-    <state width="1292" height="286" key="GridCell.Tab.0.bottom" timestamp="1596416116877">
+    <state x="610" y="93" width="685" height="792" key="CommitChangelistDialog2" timestamp="1596638948252">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1292" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596416116877" />
-    <state width="1292" height="286" key="GridCell.Tab.0.center" timestamp="1596416116876">
+    <state x="610" y="93" width="685" height="792" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596638948252" />
+    <state x="446" y="234" width="428" height="474" key="FileChooserDialogImpl" timestamp="1596461923901">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1292" height="286" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596416116876" />
-    <state width="1292" height="286" key="GridCell.Tab.0.left" timestamp="1596416116876">
+    <state x="446" y="234" width="428" height="474" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1596461923901" />
+    <state width="1874" height="286" key="GridCell.Tab.0.bottom" timestamp="1596638900106">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1292" height="286" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596416116876" />
-    <state width="1292" height="286" key="GridCell.Tab.0.right" timestamp="1596416116877">
+    <state width="1874" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596638900106" />
+    <state width="1874" height="286" key="GridCell.Tab.0.center" timestamp="1596638900106">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1292" height="286" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596416116877" />
+    <state width="1874" height="286" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596638900106" />
+    <state width="1874" height="286" key="GridCell.Tab.0.left" timestamp="1596638900105">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="286" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596638900105" />
+    <state width="1874" height="286" key="GridCell.Tab.0.right" timestamp="1596638900106">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="286" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596638900106" />
+    <state width="1874" height="352" key="GridCell.Tab.1.bottom" timestamp="1596499976391">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="352" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596499976391" />
+    <state width="1874" height="352" key="GridCell.Tab.1.center" timestamp="1596499976390">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="352" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596499976390" />
+    <state width="1874" height="352" key="GridCell.Tab.1.left" timestamp="1596499976390">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="352" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596499976390" />
+    <state width="1874" height="352" key="GridCell.Tab.1.right" timestamp="1596499976390">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="352" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596499976390" />
+    <state x="623" y="234" width="672" height="678" key="search.everywhere.popup" timestamp="1596471046887">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="234" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596471046887" />
   </component>
 </project>

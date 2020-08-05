@@ -8,16 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Launcher {
-    List<Server> servers = new ArrayList<Server>();
+    List<Server> servers = new ArrayList<>();
 
     public Launcher() {
 
     }
 
-    public void startServer(File baseDirectory) {
-        Server server = new Server(baseDirectory);
+    public void createServer(String name) {
+
+    }
+
+    public void startServer(String name) {
+        Server server = new Server(new File("servers/" + name));
         this.servers.add(server);
         server.start();
-        new Client("localhost", 38642).start();
+    }
+
+    public void joinServer(String name) {
+
+    }
+
+    public void joinServer(String address, int port) {
+        new Client(address, port).start();
     }
 }

@@ -1,5 +1,7 @@
 package com.github.obj04.terraincognita.client;
 
+import com.github.obj04.terraincognita.game.Coordinates;
+
 import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,41 +10,19 @@ import java.net.ConnectException;
 import java.net.Socket;
 
 public class Client extends Thread {
-    public Socket server;
-    public final String ip;
-    public final int port;
-    DataOutputStream out;
-    DataInputStream in;
+    ServerConnection connection;
+    GameWindow window;
 
-
-    public Client(String ip, int port)
-    {
-        this.ip = ip;
-        this.port = port;
+    public Client(String ip, int port) {
+        this.connection = new ServerConnection(ip, port);
+        this.window = new GameWindow(this);
     }
 
 
     @Override
-    public void run()
-    {
-        try
-        {
-            server = new Socket(ip, port);
-            out = new DataOutputStream(server.getOutputStream());
-            in = new DataInputStream(server.getInputStream());
-
-            String input = new String();
-
-            while(!input.equalsIgnoreCase("disconnect"))
-            {
-                input = JOptionPane.showInputDialog(null, "Send request to server", "");
-                out.writeUTF(input);
-            }
-            server.close();
-        } catch (ConnectException e) {
-            JOptionPane.showMessageDialog(null, "Can´t connect!");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Can´t connect!");
-        }
+    public void run() {
+        System.out.println(connection.getBlock(new Coordinates(-8171, 1000)).id);
+        System.out.println(connection.getBlock(new Coordinates(-8171, 50)).id);
+        //connection.close();
     }
 }
