@@ -15,7 +15,7 @@ public class Block {
         try {
             return BlockID.values()[this.id].name().toLowerCase();
         } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("outOfBounds");
+            System.out.println("Block.getType: outOfBounds (" + this.id + ")");
             return BlockID.UNDEFINED.name().toLowerCase();
         }
     }

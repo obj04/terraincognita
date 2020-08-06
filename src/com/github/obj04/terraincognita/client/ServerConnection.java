@@ -41,11 +41,16 @@ public class ServerConnection {
     }
 
     public Block getBlock(Coordinates pos) {
+        Block bufferedBlock = this.blockBuffer.get(pos);
+        if(bufferedBlock != null)
+            return bufferedBlock;
         try {
             out.writeByte(getReqCode(Request.GET_BLOCK));
             out.writeLong(pos.x);
             out.writeInt(pos.y);
-            return new Block(in.read());
+            Block block = new Block(in.read());
+            this.blockBuffer.put(pos, block);
+            return block;
         } catch (IOException e) {
             e.printStackTrace();
         }

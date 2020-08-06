@@ -29,16 +29,16 @@ public class GameWindow extends JFrame {
             public void keyPressed(KeyEvent keyEvent) {
                 switch(keyEvent.getKeyChar()) {
                     case 'w':
-                        fov.yPawn -= 0.1;
+                        fov.move(0f, 0.1f);
                         break;
                     case 's':
-                        fov.yPawn += 0.1;
+                        fov.move(0f, -0.1f);
                         break;
                     case 'a':
-                        fov.xPawn += 0.1;
+                        fov.move(0.1f, 0f);
                         break;
                     case 'd':
-                        fov.xPawn -= 0.1;
+                        fov.move(-0.1f, 0f);
                         break;
                 }
                 fov.repaint();

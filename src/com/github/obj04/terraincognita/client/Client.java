@@ -2,13 +2,6 @@ package com.github.obj04.terraincognita.client;
 
 import com.github.obj04.terraincognita.game.Coordinates;
 
-import javax.swing.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.Socket;
-
 public class Client extends Thread {
     ServerConnection connection;
     GameWindow window;

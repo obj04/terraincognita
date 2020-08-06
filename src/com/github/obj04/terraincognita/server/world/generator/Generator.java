@@ -15,5 +15,10 @@ public class Generator {
 
     public void generateAt(long xPos) {
         world.setBlock(new Coordinates(xPos, 50), new Block(2));
+        if(xPos == 0) {
+            for(int i = 0; i < 100; i++) {
+                world.setBlock(new Coordinates(0L, i), new Block(2));
+            }
+        }
     }
 }
