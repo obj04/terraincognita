@@ -9,7 +9,7 @@ public class Texture {
     ImageIcon image;
 
     public Texture(String name) {
-        this.image = new ImageIcon("resources/textures/" + name + ".gif");
+        this.image = new ImageIcon("resources/textures/" + name + ".png");
     }
 
     public ImageIcon getImage(Dimension size) {

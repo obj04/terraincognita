@@ -1,7 +1,7 @@
 package com.github.obj04.terraincognita.server.world.generator;
 
 import com.github.obj04.terraincognita.game.Block;
-import com.github.obj04.terraincognita.game.Coordinates;
+import com.github.obj04.terraincognita.game.BlockCoordinates;
 import com.github.obj04.terraincognita.server.world.World;
 
 public class Generator {
@@ -14,11 +14,18 @@ public class Generator {
     }
 
     public void generateAt(long xPos) {
-        world.setBlock(new Coordinates(xPos, 50), new Block(2));
+        blankSector(xPos);
+        world.setBlock(new BlockCoordinates(xPos, (int) (100 + 20 * simplex.noise(xPos / 50., 0))), new Block(2));
         if(xPos == 0) {
             for(int i = 0; i < 100; i++) {
-                world.setBlock(new Coordinates(0L, i), new Block(2));
+                world.setBlock(new BlockCoordinates(0L, i), new Block(2));
             }
+        }
+    }
+
+    void blankSector(long xPos) {
+        for(int i = 0; i < world.height; i++) {
+            world.setBlock(new BlockCoordinates(xPos, i), new Block(1));
         }
     }
 }

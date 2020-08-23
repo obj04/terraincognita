@@ -1,7 +1,7 @@
 package com.github.obj04.terraincognita.server.world;
 
 import com.github.obj04.terraincognita.game.Block;
-import com.github.obj04.terraincognita.game.Coordinates;
+import com.github.obj04.terraincognita.game.BlockCoordinates;
 import com.github.obj04.terraincognita.server.world.generator.Generator;
 
 import java.util.HashMap;
@@ -10,14 +10,14 @@ import java.util.Map;
 public class World {
     Generator generator;
     Map<Long, Block[]> verticalSectors = new HashMap<>();
-    final int height;
+    public final int height;
 
     public World() {
         this.generator = new Generator(this, 34);
         this.height = 1024;
     }
 
-    public Block getBlock(Coordinates pos) {
+    public Block getBlock(BlockCoordinates pos) {
         Block[] sector = this.verticalSectors.get(pos.x);
         if(sector == null) {
             this.generator.generateAt(pos.x);
@@ -26,7 +26,7 @@ public class World {
         return sector[pos.y];
     }
 
-    public void setBlock(Coordinates pos, Block block) {
+    public void setBlock(BlockCoordinates pos, Block block) {
         Block[] sector = this.verticalSectors.get(pos.x);
         if(sector == null) {
             sector = new Block[this.height];

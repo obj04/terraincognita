@@ -1,21 +1,30 @@
 package com.github.obj04.terraincognita.client;
 
-import com.github.obj04.terraincognita.game.Coordinates;
+import javax.swing.*;
 
 public class Client extends Thread {
+    String serverAddress;
+    int serverPort;
     ServerConnection connection;
     GameWindow window;
 
-    public Client(String ip, int port) {
-        this.connection = new ServerConnection(ip, port);
-        this.window = new GameWindow(this);
+    public Client(String host, int port) {
+        this.serverAddress = host;
+        this.serverPort = port;
     }
 
 
     @Override
     public void run() {
-        System.out.println(connection.getBlock(new Coordinates(-8171, 1000)).id);
-        System.out.println(connection.getBlock(new Coordinates(-8171, 50)).id);
-        //connection.close();
+        try {
+            sleep(1000);
+        } catch(InterruptedException e) {}
+        try {
+            this.connection = new ServerConnection(this.serverAddress, this.serverPort);
+        } catch(NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Could not connect to the given server", "Error", 1);
+            return;
+        }
+        this.window = new GameWindow(this);
     }
 }

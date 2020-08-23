@@ -1,7 +1,7 @@
 package com.github.obj04.terraincognita.server;
 
 import com.github.obj04.terraincognita.client.Request;
-import com.github.obj04.terraincognita.game.Coordinates;
+import com.github.obj04.terraincognita.game.BlockCoordinates;
 import com.github.obj04.terraincognita.server.world.World;
 
 import java.io.*;
@@ -94,8 +94,13 @@ public class Server extends Thread {
                 Request request = getRequest(input);
                 switch(request) {
                     case GET_BLOCK:
-                        Coordinates pos = new Coordinates(in.readLong(), in.readInt());
-                        out.write(world.getBlock(pos).id);
+                        BlockCoordinates pos = new BlockCoordinates(in.readLong(), in.readInt());
+                        try {
+                            out.write(world.getBlock(pos).id);
+                        } catch(ArrayIndexOutOfBoundsException e) {
+                            this.state = ServerThreadState.CRASHED;
+                            this.removeClient(client);
+                        }
                 }
             } catch(EOFException e) {
                 removeClient(client);
@@ -120,9 +125,13 @@ public class Server extends Thread {
 
 
 
-    private synchronized void removeClient(Socket client)
-    {
+    private synchronized void removeClient(Socket client) {
         clients.remove(client);
+        try {
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("" + client.getRemoteSocketAddress() + " disconnected");
     }
     private synchronized void addClient(Socket client)

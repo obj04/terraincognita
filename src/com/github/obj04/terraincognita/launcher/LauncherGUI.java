@@ -9,7 +9,8 @@ public class LauncherGUI extends JFrame {
     public LauncherGUI(Launcher launcher) {
         super("Terra Incognita Launcher");
         this.launcher = launcher;
-        launcher.startServer(".");
-        launcher.joinServer("localhost", 38642);
+        String addr = JOptionPane.showInputDialog(null, "Server address", "localhost");
+        launcher.startServer(addr);
+        launcher.joinServer(addr, 38642);
     }
 }

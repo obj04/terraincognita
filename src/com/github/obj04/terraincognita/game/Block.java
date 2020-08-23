@@ -8,7 +8,6 @@ public class Block {
 
     public Block(int id) {
         this.id = id;
-
     }
 
     public String getType() {
